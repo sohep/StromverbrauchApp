@@ -98,19 +98,27 @@ export class CreateCounterPage implements OnInit {
 
   submit(){
     this.isLoading = true;
+
     let counter = {
       'counterNumber': this.counterForm.value.counterNumber,
-      'status': this.counterForm.value.status,
+      'status': [{'state': this.counterForm.value.status, 'date': ''}],
       'date': this.counterForm.value.date,
       'ppkw': this.counterForm.value.ppkw,
       'basicPrice': this.counterForm.value.basicPrice
     };
-    //let today = new Date();
 
-    this.storage.set('counters', counter).then(() => {
-      this.isLoading = false;
-      this.isSent = true;
-    });
+    this.storage.get('counters').then(res => {
+      if(res) {
+        res.push(counter);
+        this.isLoading = false;
+        this.isSent = true;
+      }else {
+        this.storage.set('counters', counter).then(() => {
+          this.isLoading = false;
+          this.isSent = true;
+        });
+      }
+    })
   }
 
 }

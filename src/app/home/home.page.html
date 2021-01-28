@@ -1,8 +1,38 @@
 <app-header title="Home"></app-header>
 
 <ion-content [fullscreen]="true">
+  <ion-row *ngIf="isLoading; else realContent">
+    <ion-spinner color="primary"></ion-spinner>
+  </ion-row>
+
+  <ng-template #realContent></ng-template>
   <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <ion-grid>
+      <ion-row>
+        <div *ngIf="data.length > 0; else noData">
+          <ion-col size="12" *ngFor="let item of data">
+            <ion-card-header>
+              <ion-card-subtitle>{{ item.counterNumber }}</ion-card-subtitle>
+              <ion-card-title>{{ item.counterNumber }}</ion-card-title>
+              <div *ngFor="let state of data.status">
+                <p>{{state.state }}</p>
+                <p>{{state.date }}</p>
+              </div>
+            </ion-card-header>
+          </ion-col>
+        </div>
+        
+        <ng-template #noData>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12">
+                <ion-text color="warning" class="ion-margin-bottom">du hast gerade keine zählernummer</ion-text>
+                <ion-button color="primary" class="ion-margin-top" (click)="addCounter()">Zähler einfügen</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ng-template>
+      </ion-row>
+    </ion-grid>
   </div>
 </ion-content>

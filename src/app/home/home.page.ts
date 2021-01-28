@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Storage } from '@ionic/storage';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-home',
@@ -6,7 +9,23 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  isLoading: boolean = true;
+  data: any = [];
+  constructor(private storage: Storage, private router: Router,) {}
 
-  constructor() {}
+  ionViewWillEnter() {
+    this.storage.get('counters').then(res => {
+      if(res) {
+        console.log(res)
+        this.data = res;
+        this.isLoading = false;
+      } else {
+        this.isLoading = false;
+      }
+    })
+  }
 
+  addCounter() {
+    this.router.navigate(['/create-counter']);
+  }
 }

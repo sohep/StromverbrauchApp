@@ -1,0 +1,84 @@
+<app-header title="Zähler erstellen"></app-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12">
+        <div class="card">
+          <form [formGroup]="counterForm" (ngSubmit)="submit()">
+            <ion-item>
+              <ion-label position="floating">Zählernummer</ion-label>
+              <ion-input formControlName="counterNumber"></ion-input>
+            </ion-item>
+            <div *ngFor="let error of errorMessages.counterNumber">
+              <ng-container *ngIf="counterNumber.hasError(error.type) && (counterNumber.dirty || counterNumber.touched)">
+                <div class="error-message">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ error.message }}
+                </div>
+              </ng-container>
+            </div>
+
+            <ion-item>
+              <ion-label position="floating">Zählerstand</ion-label>
+              <ion-input formControlName="status" type="number"></ion-input>
+            </ion-item>
+            <div *ngFor="let error of errorMessages.status">
+              <ng-container *ngIf="status.hasError(error.type) && (status.dirty || status.touched)">
+                <div class="error-message">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ error.message }}
+                </div>
+              </ng-container>
+            </div>
+
+            <ion-item>
+              <ion-input formControlName="date" type="date"></ion-input>
+            </ion-item>
+            <div *ngFor="let error of errorMessages.date">
+              <ng-container *ngIf="date.hasError(error.type) && (date.dirty || date.touched)">
+                <div class="error-message">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ error.message }}
+                </div>
+              </ng-container>
+            </div>
+
+            <ion-item>
+              <ion-label position="floating">Preis pro KW</ion-label>
+              <ion-input formControlName="ppkw" type="number"></ion-input>
+            </ion-item>
+            <div *ngFor="let error of errorMessages.ppkw">
+              <ng-container *ngIf="ppkw.hasError(error.type) && (ppkw.dirty || ppkw.touched)">
+                <div class="error-message">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ error.message }}
+                </div>
+              </ng-container>
+            </div>
+
+            <ion-item>
+              <ion-label position="floating">Grundpreis</ion-label>
+              <ion-input formControlName="basicPrice" type="number"></ion-input>
+            </ion-item>
+            <div *ngFor="let error of errorMessages.basicPrice">
+              <ng-container *ngIf="basicPrice.hasError(error.type) && (basicPrice.dirty || basicPrice.touched)">
+                <div class="error-message">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ error.message }}
+                </div>
+              </ng-container>
+            </div>
+
+            <div class="ion-padding-top">
+              <ion-button size="large" [disabled]="!counterForm.valid" type="submit" expand="block">Submit</ion-button>
+              <div *ngIf="isLoading" class="ion-padding-top loader">
+                <ion-spinner color="primary"></ion-spinner>
+              </div>
+
+              <div *ngIf="isSubmited" class="ion-padding-top">
+                <ion-text color="success">Ihre Eingaben wird gespeichrt</ion-text>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

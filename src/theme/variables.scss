@@ -76,6 +76,12 @@
   --ion-color-light-tint: #f5f6f9;
 }
 
+.error-message{
+  color: red;
+  font-size: 14px;
+  padding: 4px;
+}
+
 @media (prefers-color-scheme: dark) {
   /*
    * Dark Colors

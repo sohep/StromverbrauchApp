@@ -10,7 +10,11 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
+  },  {
+    path: 'create-counter',
+    loadChildren: () => import('./settings/counter/create-counter/create-counter.module').then( m => m.CreateCounterPageModule)
   },
+
 ];
 
 @NgModule({

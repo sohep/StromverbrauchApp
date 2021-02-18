@@ -14,6 +14,8 @@ export class ChartPage implements OnInit {
   data: any = [];
   dates: any = [];
   states: any = [];
+  costsPerState: any = [];
+  grundpreis: any = [];
   bars: any;
   colorArray: any;
   @ViewChild('barChart') barChart;
@@ -27,6 +29,8 @@ export class ChartPage implements OnInit {
           for(let status of this.data.status) {
             this.dates.push(new Date(status.date).toDateString());
             this.states.push(status.status)
+            this.costsPerState.push(status.status * this.data.ppkw)
+            this.grundpreis.push(this.data.basicPrice)
           }
           this.isLoading = false;
           console.log(this.data)
@@ -47,13 +51,29 @@ export class ChartPage implements OnInit {
       type: 'bar',
       data: {
         labels: this.dates,
-        datasets: [{
-          label: 'Ihre Stromverbrauch in KW',
-          data: this.states,
-          backgroundColor: 'rgb(38, 194, 129)',
-          borderColor: 'rgb(38, 194, 129)',
-          borderWidth: 1
-        }]
+        datasets: [
+          {
+            label: 'Ihre Stromverbrauch in KW',
+            data: this.states,
+            backgroundColor: 'rgb(38, 194, 200)',
+            borderColor: 'rgb(38, 194, 200)',
+            borderWidth: 1
+          },
+          {
+            label: 'Ihre Stromverbrauch in Euro',
+            data: this.costsPerState,
+            backgroundColor: 'rgb(38, 194, 129)',
+            borderColor: 'rgb(38, 194, 129)',
+            borderWidth: 1
+          },
+          {
+            label: 'Monatliche Grundpreis in Euro',
+            data: this.grundpreis,
+            backgroundColor: 'rgb(169,169,169)',
+            borderColor: 'rgb(169,169,169)',
+            borderWidth: 1
+          }
+        ]
       },
       options: {
         scales: {
@@ -65,6 +85,24 @@ export class ChartPage implements OnInit {
         }
       }
     });
+  }
+
+  getAllTimeCost() {
+    let sum: number = 0;
+    for(let item of this.states) {
+      sum = sum + item
+    }
+    return sum * this.data.ppkw
+  }
+
+  getFirstDate() {
+    console.log(this.dates)
+
+    return this.dates[0]
+  }
+
+  getLastDate() {
+    return this.dates[this.dates.length - 1]
   }
 
 }

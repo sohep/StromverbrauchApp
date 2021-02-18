@@ -13,7 +13,12 @@
             <ion-col size="12" *ngFor="let item of data">
               <ion-card>
                 <ion-item lines="none">
-                  <ion-label>Zählernummer: {{ item.counterNumber }}</ion-label>
+                  <ion-label>
+                    <h2>Zählernummer: {{ item.counterNumber }}</h2>
+                    <h3 class="gray">{{item.date | date }}</h3>
+                    <h3 class="gray">Preis pro KW: {{item.ppkw }}€</h3>
+                    <h3 class="gray">Grundpreis: {{item.basicPrice }}€</h3>
+                  </ion-label>
                 </ion-item>
             
                 <ion-card-content>
@@ -22,7 +27,7 @@
                     <ion-item *ngFor="let state of item.status">
                       <ion-label>
                         <h2>{{state.status }} KW</h2>
-                        <h3>{{state.date | date }}</h3>
+                        <h3 class="gray">{{state.date | date }}</h3>
                       </ion-label>
                       <ion-icon icon="trash" (click)="deleteStatus($event, state)"></ion-icon>
                     </ion-item>
@@ -52,7 +57,7 @@
       <ion-grid>
         <ion-row>
           <ion-col size="12">
-            <ion-button color="primary" class="ion-margin-top" (click)="addCounter()">Zähler einfügen</ion-button>
+            <ion-button color="primary" (click)="addCounter()">Zähler einfügen</ion-button>
           </ion-col>
         </ion-row>
       </ion-grid>

@@ -5,47 +5,49 @@
     <ion-spinner color="primary"></ion-spinner>
   </ion-row>
 
-  <ng-template #realContent></ng-template>
-  <div id="container">
-    <ion-grid>
-      <ion-row>
-        <div class="full-width" *ngIf="data.length > 0; else noData">
-          <ion-col size="12" *ngFor="let item of data">
-            <ion-card>
-              <ion-item lines="none">
-                <ion-label>{{ item.counterNumber }}</ion-label>
-              </ion-item>
+  <ng-template #realContent>
+    <div id="container">
+      <ion-grid>
+        <ion-row>
+          <div class="full-width" *ngIf="data.length > 0; else noData">
+            <ion-col size="12" *ngFor="let item of data">
+              <ion-card>
+                <ion-item lines="none">
+                  <ion-label>{{ item.counterNumber }}</ion-label>
+                </ion-item>
+            
+                <ion-card-content>
+                  <h2>Status des Zähler</h2>
+                  <ion-list *ngIf="item.status.length > 0">
+                    <ion-item *ngFor="let state of item.status">
+                      <ion-label>
+                        <h2>{{state.status }}</h2>
+                        <h3>{{state.date | date }}</h3>
+                      </ion-label>
+                    </ion-item>
+                  </ion-list>
+
+                  <p><ion-text *ngIf="item.status.length == 0" color="warning" class="ion-margin-bottom">Keine Beiträge</ion-text></p>
+
+                  <ion-button (click)="addStatus(item.counterNumber)">Status hinfügen</ion-button>
+                  <ion-button (click)="openChart(item.counterNumber)" color="success">Chart</ion-button>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+          </div>
           
-              <ion-card-content>
-                <h2>Status des Zähler</h2>
-                <ion-list *ngIf="item.status.length > 0">
-                  <ion-item *ngFor="let state of item.status">
-                    <ion-label>
-                      <h2>{{state.status }}</h2>
-                      <h3>{{state.date | date }}</h3>
-                    </ion-label>
-                  </ion-item>
-                </ion-list>
-
-                <p><ion-text *ngIf="item.status.length == 0" color="warning" class="ion-margin-bottom">Keine Beiträge</ion-text></p>
-
-                <ion-button (click)="addStatus(item.counterNumber)">Status hinfügen</ion-button>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-        </div>
-        
-        <ng-template #noData>
-          <ion-grid>
-            <ion-row>
-              <ion-col size="12">
-                <ion-text color="warning" class="ion-margin-bottom">du hast gerade keine zählernummer</ion-text>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ng-template>
-      </ion-row>
-    </ion-grid>
-    <ion-button color="primary" class="ion-margin-top" (click)="addCounter()">Zähler einfügen</ion-button>
-  </div>
+          <ng-template #noData>
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12">
+                  <ion-text color="warning" class="ion-margin-bottom">du hast gerade keine zählernummer</ion-text>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ng-template>
+        </ion-row>
+      </ion-grid>
+      <ion-button color="primary" class="ion-margin-top" (click)="addCounter()">Zähler einfügen</ion-button>
+    </div>
+  </ng-template>
 </ion-content>

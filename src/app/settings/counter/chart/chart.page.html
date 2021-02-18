@@ -1,0 +1,20 @@
+<app-header title="Chart" backButton="true"></app-header>
+
+<ion-content>
+  <ion-row *ngIf="isLoading; else realContent">
+    <ion-spinner color="primary"></ion-spinner>
+  </ion-row>
+
+  <ng-template #realContent>
+    <ion-list-header color="light">Ihre Stromverbrauch im Augenblick</ion-list-header>
+    <ion-card class="welcome-card">
+      <ion-card-header>
+        <ion-card-subtitle></ion-card-subtitle>
+        <ion-card-title>Zählernummer: {{ data.counterNumber}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #barChart></canvas>
+      </ion-card-content>
+    </ion-card>
+  </ng-template>
+</ion-content>

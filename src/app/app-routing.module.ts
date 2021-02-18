@@ -19,6 +19,11 @@ const routes: Routes = [
     path: 'add-status/:counterNumber',
     loadChildren: () => import('./settings/counter/add-status/add-status.module').then( m => m.AddStatusPageModule)
   },
+  {
+    path: 'chart/:counterNumber',
+    loadChildren: () => import('./settings/counter/chart/chart.module').then( m => m.ChartPageModule)
+  },
+
 
 ];
 

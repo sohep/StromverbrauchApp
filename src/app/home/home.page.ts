@@ -28,4 +28,8 @@ export class HomePage {
   addStatus(counterNumber) {
     this.router.navigate(['/add-status', counterNumber]);
   }
+
+  openChart(counterNumber) {
+    this.router.navigate(['/chart', counterNumber]);
+  }
 }

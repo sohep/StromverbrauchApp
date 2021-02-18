@@ -19,6 +19,7 @@
             </div>
 
             <ion-item>
+              <ion-label position="floating">Datum</ion-label>
               <ion-input formControlName="date" type="date"></ion-input>
             </ion-item>
             <div *ngFor="let error of errorMessages.date">
@@ -54,7 +55,7 @@
             </div>
 
             <div class="ion-padding-top">
-              <ion-button size="large" [disabled]="!counterForm.valid" type="submit" expand="block">Submit</ion-button>
+              <ion-button size="large" [disabled]="!counterForm.valid" type="submit" expand="block">Speichern</ion-button>
               <div *ngIf="isLoading" class="ion-padding-top loader">
                 <ion-spinner color="primary"></ion-spinner>
               </div>

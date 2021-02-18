@@ -48,7 +48,7 @@ export class ChartPage implements OnInit {
       data: {
         labels: this.dates,
         datasets: [{
-          label: 'Ihre Stromverbrauch',
+          label: 'Ihre Stromverbrauch in KW',
           data: this.states,
           backgroundColor: 'rgb(38, 194, 129)',
           borderColor: 'rgb(38, 194, 129)',

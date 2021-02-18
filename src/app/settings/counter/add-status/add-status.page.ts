@@ -70,6 +70,7 @@ export class AddStatusPage implements OnInit {
         this.storage.set('counters', res).then(() => {
           this.isLoading = false;
           this.isSent = true;
+          this.counterForm.reset();
         });
       }
     })

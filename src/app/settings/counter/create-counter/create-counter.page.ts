@@ -114,11 +114,13 @@ export class CreateCounterPage implements OnInit {
         this.storage.set('counters', res).then(() => {
           this.isLoading = false;
           this.isSent = true;
+          this.counterForm.reset();
         });
       }else {
         this.storage.set('counters', [counter]).then(() => {
           this.isLoading = false;
           this.isSent = true;
+          this.counterForm.reset();
         });
       }
     })

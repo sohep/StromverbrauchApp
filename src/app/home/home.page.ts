@@ -9,23 +9,23 @@ import { Router } from '@angular/router';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  isLoading: boolean = true;
+  isLoading: boolean;
   data: any = [];
-  constructor(private storage: Storage, private router: Router,) {}
+  constructor(private storage: Storage, private router: Router) {}
 
   ionViewWillEnter() {
+    this.isLoading = true;
     this.storage.get('counters').then(res => {
-      if(res) {
-        console.log(res)
-        this.data = res;
-        this.isLoading = false;
-      } else {
-        this.isLoading = false;
-      }
+      this.data = res;
+      this.isLoading = false;
     })
   }
 
   addCounter() {
     this.router.navigate(['/create-counter']);
+  }
+
+  addStatus(counterNumber) {
+    this.router.navigate(['/add-status', counterNumber]);
   }
 }

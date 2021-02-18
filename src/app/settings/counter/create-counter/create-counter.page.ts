@@ -20,9 +20,9 @@ export class CreateCounterPage implements OnInit {
     return this.counterForm.get('counterNumber');
   }
 
-  get status() {
+  /*get status() {
     return this.counterForm.get('status');
-  }
+  }*/
 
   get date() {
     return this.counterForm.get('date');
@@ -44,14 +44,14 @@ export class CreateCounterPage implements OnInit {
         //Validators.pattern('^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$')
       ]
     ],
-    status: [
+    /*status: [
       '',
       [
         Validators.required,
         //Validators.minLength(8),
         //Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
       ]
-    ],
+    ],*/
     date: [
       '',
       [
@@ -82,9 +82,9 @@ export class CreateCounterPage implements OnInit {
     counterNumber: [
       { type: 'required', message: 'required' },
     ],
-    status: [
+    /*status: [
       { type: 'required', message: 'required' },
-    ],
+    ],*/
     date: [
       { type: 'required', message: 'required' },
     ],
@@ -101,7 +101,7 @@ export class CreateCounterPage implements OnInit {
 
     let counter = {
       'counterNumber': this.counterForm.value.counterNumber,
-      'status': [{'state': this.counterForm.value.status, 'date': ''}],
+      'status': [],
       'date': this.counterForm.value.date,
       'ppkw': this.counterForm.value.ppkw,
       'basicPrice': this.counterForm.value.basicPrice
@@ -109,11 +109,14 @@ export class CreateCounterPage implements OnInit {
 
     this.storage.get('counters').then(res => {
       if(res) {
+        console.log('res', res)
         res.push(counter);
-        this.isLoading = false;
-        this.isSent = true;
+        this.storage.set('counters', res).then(() => {
+          this.isLoading = false;
+          this.isSent = true;
+        });
       }else {
-        this.storage.set('counters', counter).then(() => {
+        this.storage.set('counters', [counter]).then(() => {
           this.isLoading = false;
           this.isSent = true;
         });

@@ -60,12 +60,11 @@ export class HomePage {
   getAllTimeCost(status, basicPrice, ppkw, discounts, counterDate) {
     let date = this.formatDate(new Date(counterDate));
     let sum: number = 0;
-    let monthCount;
+    let monthCount = 1;
     for(let item of status) {
       let currentDate = this.formatDate(new Date().toString());
       sum = sum + item.status
       monthCount = this.dateRange(date, currentDate);
-      console.log(monthCount)
     }
     return (discounts * monthCount) - (sum * ppkw + basicPrice)
   }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 
 @Component({
@@ -45,6 +45,8 @@ export class AddStatusPage implements OnInit {
         Validators.required,
       ]
     ]
+  },{
+    validators: this.validateDate.bind(this)
   });
 
   errorMessages = {
@@ -53,6 +55,9 @@ export class AddStatusPage implements OnInit {
     ],
     date: [
       { type: 'required', message: 'required' },
+      {
+        type: 'dateNotInFuture', message: 'Datum darf nicht in Zukunft sein'
+      }
     ]
   }
 
@@ -76,4 +81,16 @@ export class AddStatusPage implements OnInit {
     })
   }
 
+  validateDate(formGroup: FormGroup) {
+    let currentDate = new Date().getTime();
+    let dateInput = formGroup.get('date');
+    let date = new Date(dateInput.value).getTime();
+
+    if(dateInput.value.length > 0) {
+      return date < currentDate ? null : dateInput.setErrors({ dateNotInFuture: true })
+    } else {
+      dateInput.setErrors(null);
+      return null;
+    }
+  }
 }

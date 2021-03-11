@@ -54,6 +54,18 @@
               </ng-container>
             </div>
 
+            <ion-item>
+              <ion-label position="floating">Abschläge</ion-label>
+              <ion-input formControlName="discounts" type="number"></ion-input>
+            </ion-item>
+            <div *ngFor="let error of errorMessages.discounts">
+              <ng-container *ngIf="discounts.hasError(error.type) && (discounts.dirty || discounts.touched)">
+                <div class="error-message">
+                  <ion-icon name="information-circle-outline"></ion-icon> {{ error.message }}
+                </div>
+              </ng-container>
+            </div>
+
             <div class="ion-padding-top">
               <ion-button size="large" [disabled]="!counterForm.valid" type="submit" expand="block">Speichern</ion-button>
               <div *ngIf="isLoading" class="ion-padding-top loader">

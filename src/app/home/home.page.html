@@ -18,6 +18,8 @@
                     <h3 class="gray">{{item.date | date }}</h3>
                     <h3 class="gray">Preis pro KW: {{item.ppkw }}€</h3>
                     <h3 class="gray">Grundpreis: {{item.basicPrice }}€</h3>
+                    <h3 class="gray">Abschläge: {{item.discounts }}€</h3>
+                    <div class="circel" [class.red]="getAllTimeCost(item.status, item.basicPrice, item.ppkw, item.discounts, item.date) < 0">{{ getAllTimeCost(item.status, item.basicPrice, item.ppkw, item.discounts, item.date) }}€</div>
                   </ion-label>
                 </ion-item>
             

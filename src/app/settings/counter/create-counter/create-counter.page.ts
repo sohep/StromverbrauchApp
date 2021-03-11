@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 
 @Component({
@@ -34,6 +34,10 @@ export class CreateCounterPage implements OnInit {
 
   get basicPrice() {
     return this.counterForm.get('basicPrice');
+  }
+
+  get discounts() {
+    return this.counterForm.get('discounts');
   }
 
   counterForm = this.formBuilder.group({
@@ -76,6 +80,14 @@ export class CreateCounterPage implements OnInit {
         //Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
       ]
     ],
+    discounts: [
+      '',
+      [
+        Validators.required,
+        //Validators.minLength(8),
+        //Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
+      ]
+    ],
   });
 
   errorMessages = {
@@ -93,6 +105,9 @@ export class CreateCounterPage implements OnInit {
     ],
     basicPrice: [
       { type: 'required', message: 'required' },
+    ],
+    discounts: [
+      { type: 'required', message: 'required' },
     ]
   }
 
@@ -104,7 +119,8 @@ export class CreateCounterPage implements OnInit {
       'status': [],
       'date': this.counterForm.value.date,
       'ppkw': this.counterForm.value.ppkw,
-      'basicPrice': this.counterForm.value.basicPrice
+      'basicPrice': this.counterForm.value.basicPrice,
+      'discounts': this.counterForm.value.discounts
     };
 
     this.storage.get('counters').then(res => {
